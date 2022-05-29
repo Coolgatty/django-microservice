@@ -1,0 +1,17 @@
+DEBUG = True
+
+# Database
+# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+LOCAL_DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'database-name',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
+}
+
+SECRET_KEY = ''
