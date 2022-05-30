@@ -49,5 +49,16 @@ services:
       - db
       - redis
 
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - app-network
+    depends_on:
+      - web
+
 volumes:
   postgres_data:
