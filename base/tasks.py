@@ -5,7 +5,7 @@ import requests
 from django.core.mail import send_mail
 from django.conf import settings
 
-BACKEND_URL = 'https://k22ok5vv55.execute-api.us-east-1.amazonaws.com/index'
+BACKEND_URL = 'http://3.223.72.156'
 
 # The "shared_task" decorator allows creation
 # of Celery tasks for reusable apps as it doesn't
@@ -34,8 +34,7 @@ def calculate_sidi(sender_points, receiver_points):
 @shared_task
 def calculate_siin(sender_points, receiver_points):
 
-    # tags = requests.get(f'{BACKEND_URL}/tag/all').json()
-    tags = {"data":[{"type":"tags","id":"4","attributes":{"name":"Trabajo"}},{"type":"tags","id":"6","attributes":{"name":"Fiesta"}},{"type":"tags","id":"5","attributes":{"name":"Gimnasio"}},{"type":"tags","id":"9","attributes":{"name":"Arte"}},{"type":"tags","id":"1","attributes":{"name":"Deporte"}},{"type":"tags","id":"10","attributes":{"name":"Lectura"}},{"type":"tags","id":"2","attributes":{"name":"Parque"}},{"type":"tags","id":"7","attributes":{"name":"Comida"}},{"type":"tags","id":"3","attributes":{"name":"Universidad"}},{"type":"tags","id":"8","attributes":{"name":"Mascotas"}}]} 
+    tags = requests.get(f'{BACKEND_URL}/tag/all').json()
 
     sender_interests = {tag['attributes']['name']: 0 for tag in tags['data']}
     receiver_interests = {tag['attributes']['name']: 0 for tag in tags['data']}
