@@ -10,11 +10,11 @@ services:
     build:
         context: .
         dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:3000
     volumes:
       - .:/opt/
     ports:
-      - 40:8000
+      - 80:8000
     env_file:
       - ./.env
     depends_on:

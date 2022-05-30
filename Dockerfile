@@ -16,3 +16,4 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY . /opt/
+EXPOSE 3000
