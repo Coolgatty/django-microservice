@@ -43,7 +43,7 @@ LOCAL_DATABASES = {
     },
 }
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['web']
 
 # CELERY CONFIG
 # https://docs.celeryq.dev/en/stable/getting-started/backends-and-brokers/index.html
