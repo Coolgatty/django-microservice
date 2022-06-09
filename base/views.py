@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 import requests
 
 # tasks
-from base.tasks import calculate_sidi, calculate_siin, notify_when_ready
+from base.tasks import calculate_sidi, calculate_siin, notify_when_ready, recalculate_index, recalculate_indexes
 
 BACKEND_URL = 'https://k22ok5vv55.execute-api.us-east-1.amazonaws.com/index'
 PATCH_URL = 'http://3.223.72.156'
