@@ -19,6 +19,7 @@ class DinDinView(TemplateView):
         print(f'Sender {sender}, Receiver {receiver}, ping {ping_id}')
         ## requests a backend
         sender_points = requests.get(f'{BACKEND_URL}/index-service/{sender}').json()
+        print(requests.get(f'{BACKEND_URL}/index-service/{sender}'))
         receiver_points = requests.get(f'{BACKEND_URL}/index-service/{receiver}').json()
         sender_data = requests.get(f'{BACKEND_URL}/user/{sender}').json()
         receiver_data = requests.get(f'{BACKEND_URL}/user/{receiver}').json()
