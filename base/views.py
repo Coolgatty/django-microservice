@@ -1,6 +1,7 @@
 # django
 from django.views.generic import TemplateView
 import requests
+from sqlalchemy import null
 
 # tasks
 from base.tasks import calculate_sidi, calculate_siin, notify_when_ready
@@ -19,7 +20,6 @@ class DinDinView(TemplateView):
         print(f'Sender {sender}, Receiver {receiver}, ping {ping_id}')
         ## requests a backend
         sender_points = requests.get(f'{BACKEND_URL}/index-service/{sender}').json()
-        print(requests.get(f'{BACKEND_URL}/index-service/{sender}'))
         receiver_points = requests.get(f'{BACKEND_URL}/index-service/{receiver}').json()
         sender_data = requests.get(f'{BACKEND_URL}/user/{sender}').json()
         receiver_data = requests.get(f'{BACKEND_URL}/user/{receiver}').json()
@@ -27,7 +27,6 @@ class DinDinView(TemplateView):
         sender_username = sender_data['data']['attributes']['username']
         receiver_username = receiver_data['data']['attributes']['username']
         if (len(sender_points) > 0 and len(receiver_points) > 0):
-            print('points')
             sidi = calculate_sidi(sender_points, receiver_points)
             siin = calculate_siin(sender_points, receiver_points)
             dindin = sidi*siin
@@ -36,6 +35,5 @@ class DinDinView(TemplateView):
             notify_when_ready(sender_email, sender_username, receiver_username)
             requests.patch(f'{BACKEND_URL}/index-result/{ping_id}', payload)
         else:
-            print('no points')
-            requests.patch(f'{BACKEND_URL}/index-result/{ping_id}', {"state": 'missing points'})
+            requests.patch(f'{BACKEND_URL}/index-result/{ping_id}', {"siin": null, "sidi": null, "dindin": null, "state": 'missing points'})
         return super().get(self, *args, **kwargs)
