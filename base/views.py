@@ -1,7 +1,6 @@
 # django
 from django.views.generic import TemplateView
 import requests
-from sqlalchemy import null
 
 # tasks
 from base.tasks import calculate_sidi, calculate_siin, notify_when_ready
@@ -35,5 +34,5 @@ class DinDinView(TemplateView):
             notify_when_ready(sender_email, sender_username, receiver_username)
             requests.patch(f'{BACKEND_URL}/index-result/{ping_id}', payload)
         else:
-            requests.patch(f'{BACKEND_URL}/index-result/{ping_id}', {"siin": null, "sidi": null, "dindin": null, "state": 'missing points'})
+            requests.patch(f'{BACKEND_URL}/index-result/{ping_id}', {"siin": 0, "sidi": 0, "dindin": 0, "state": 'missing points'})
         return super().get(self, *args, **kwargs)
