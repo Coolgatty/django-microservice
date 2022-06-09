@@ -65,13 +65,13 @@ def notify_when_ready(email, sender, receiver):
     f'¡Hola {sender}!, los indices asociados al ping que le hiciste a {receiver} ya estan disponibles',
     settings.EMAIL_HOST_USER,
     [email],
-    fail_silently=False,
-)
+    fail_silently=False)
 
 @shared_task
 def recalculate_indexes():
     pings = requests.get(f'{BACKEND_URL}/ping/index').json()
     print(pings)
+    return
 
 @shared_task
 def recalculate_index(sender, receiver, ping_id):

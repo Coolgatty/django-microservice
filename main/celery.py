@@ -28,7 +28,7 @@ def debug_task(self):
 # The periodic task schedule used by beat.
 app.conf.beat_schedule = {
     'every-1': {
-        'task': 'base.tasks.',
+        'task': 'base.tasks.recalculate_indexes',
         'schedule': crontab(minute='*/1')  # execute every 4 minutes
     },
 }
