@@ -33,7 +33,7 @@ class DinDinView(TemplateView):
             print(f'SIDI: {sidi}, SIIN: {siin}, DINDIN: {dindin}')
             payload = { "siin": siin, "sidi": sidi, "dindin": dindin, "state": 'ready' }
             notify_when_ready(sender_email, sender_username, receiver_username)
-            requests.patch(f'{BACKEND_URL}/index-result/{ping_id}', payload)
+            requests.patch(f'{BACKEND_URL}/index-result/update/{ping_id}', payload)
         else:
-            requests.patch(f'{BACKEND_URL}/index-result/{ping_id}', {"siin": 0, "sidi": 0, "dindin": 0, "state": 'missing points'})
+            requests.patch(f'{BACKEND_URL}/index-result/update/{ping_id}', {"siin": 0, "sidi": 0, "dindin": 0, "state": 'missing points'})
         return super().get(self, *args, **kwargs)
