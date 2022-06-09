@@ -5,7 +5,7 @@ import requests
 # tasks
 from base.tasks import calculate_sidi, calculate_siin, notify_when_ready
 
-BACKEND_URL = 'http://3.223.72.156'
+BACKEND_URL = 'https://k22ok5vv55.execute-api.us-east-1.amazonaws.com/index'
 
 # Create your views here.
 class IndexView(TemplateView):
