@@ -76,9 +76,7 @@ def notify_when_ready(email, sender, receiver):
 @shared_task
 def recalculate_indexes():
     pings = requests.get(f'{BACKEND_URL}/ping/index').json()
-    print(pings)
-    print(pings.keys())
-    for ping in pings.data:
+    for ping in pings["data"]:
         recalculate_index(ping.attributes.senderUserId,
                           ping.attributes.receiverUserId, ping.id)
     return
