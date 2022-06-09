@@ -36,5 +36,6 @@ class DinDinView(TemplateView):
             notify_when_ready(sender_email, sender_username, receiver_username)
             requests.patch(f'{PATCH_URL}/index-result/update/{ping_id}', payload)
         else:
+            notify_when_ready(sender_email, sender_username, receiver_username)
             requests.patch(f'{PATCH_URL}/index-result/update/{ping_id}', {"siin": 0, "sidi": 0, "dindin": 0, "state": 'missing points'})
         return super().get(self, *args, **kwargs)
