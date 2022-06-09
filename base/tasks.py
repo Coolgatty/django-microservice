@@ -78,8 +78,8 @@ def recalculate_indexes():
     pings = requests.get(f'{BACKEND_URL}/ping/index').json()
     for ping in pings["data"]:
         print(ping)
-        recalculate_index(ping.attributes.senderUserId,
-                          ping.attributes.receiverUserId, ping.id)
+        recalculate_index(ping["attributes"]["senderUserId"],
+                          ping["attributes"]["receiverUserId"], ping["id"])
     return
 
 
