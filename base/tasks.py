@@ -5,7 +5,8 @@ import requests
 from django.core.mail import send_mail
 from django.conf import settings
 
-BACKEND_URL = 'http://3.223.72.156'
+BACKEND_URL = 'https://k22ok5vv55.execute-api.us-east-1.amazonaws.com/index'
+PATCH_URL = 'http://3.223.72.156'
 
 # The "shared_task" decorator allows creation
 # of Celery tasks for reusable apps as it doesn't
@@ -66,5 +67,27 @@ def notify_when_ready(email, sender, receiver):
     [email],
     fail_silently=False,
 )
+
+@shared_task
+def recalculate_indexes():
+    pings = requests.get(f'{BACKEND_URL}/ping/index').json()
+    print(pings)
+
+@shared_task
+def recalculate_index(sender, receiver, ping_id):
+
+    print(f'Sender {sender}, Receiver {receiver}, ping {ping_id}')
+    sender_points = requests.get(f'{BACKEND_URL}/index-service/{sender}').json()
+    receiver_points = requests.get(f'{BACKEND_URL}/index-service/{receiver}').json()
+    if (len(sender_points) > 0 and len(receiver_points) > 0):
+        sidi = calculate_sidi(sender_points, receiver_points)
+        siin = calculate_siin(sender_points, receiver_points)
+        dindin = sidi*siin
+        print(f'SIDI: {sidi}, SIIN: {siin}, DINDIN: {dindin}')
+        payload = { "siin": siin, "sidi": sidi, "dindin": dindin, "state": 'ready' }
+        requests.patch(f'{PATCH_URL}/index-result/update/{ping_id}', payload)
+    else:
+        requests.patch(f'{PATCH_URL}/index-result/update/{ping_id}', {"siin": 0, "sidi": 0, "dindin": 0, "state": 'missing points'})
+    return
 
 

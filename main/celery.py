@@ -26,18 +26,9 @@ def debug_task(self):
 
 # https://docs.celeryq.dev/en/stable/userguide/configuration.html#std-setting-beat_schedule
 # The periodic task schedule used by beat.
-# app.conf.beat_schedule = {
-#     'every-4-minutes_kenobi': {
-#         'task': 'base.tasks.kenobi',
-#         'schedule': crontab(minute='*/4')  # execute every 4 minutes
-#     },
-#     'every-1-minutes_add': {
-#         'task': 'base.tasks.add',
-#         'schedule': crontab(minute='*/1'), # every 1 minute
-#         'args': (16, 16),
-#     },
-#     'every-4-minutes_grievous': {
-#         'task': 'base.tasks.grievous',
-#         'schedule': crontab(minute='*/4') # execute every 4 minutes
-#     },
-# }
+app.conf.beat_schedule = {
+    'every-1': {
+        'task': 'base.tasks.',
+        'schedule': crontab(minute='*/1')  # execute every 4 minutes
+    },
+}
