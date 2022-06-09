@@ -25,6 +25,7 @@ class DinDinView(TemplateView):
         sender_email = sender_data['data']['attributes']['email']
         sender_username = sender_data['data']['attributes']['username']
         receiver_username = receiver_data['data']['attributes']['username']
+        print(sender_points)
         if (len(sender_points) > 0 and len(receiver_points) > 0):
             sidi = calculate_sidi(sender_points, receiver_points)
             siin = calculate_siin(sender_points, receiver_points)
