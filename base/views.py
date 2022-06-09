@@ -6,6 +6,7 @@ import requests
 from base.tasks import calculate_sidi, calculate_siin, notify_when_ready
 
 BACKEND_URL = 'https://k22ok5vv55.execute-api.us-east-1.amazonaws.com/index'
+PATCH_URL = 'http://3.223.72.156'
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -33,7 +34,7 @@ class DinDinView(TemplateView):
             print(f'SIDI: {sidi}, SIIN: {siin}, DINDIN: {dindin}')
             payload = { "siin": siin, "sidi": sidi, "dindin": dindin, "state": 'ready' }
             notify_when_ready(sender_email, sender_username, receiver_username)
-            requests.patch(f'{BACKEND_URL}/index-result/update/{ping_id}', payload)
+            requests.patch(f'{PATCH_URL}/index-result/update/{ping_id}', payload)
         else:
-            requests.patch(f'{BACKEND_URL}/index-result/update/{ping_id}', {"siin": 0, "sidi": 0, "dindin": 0, "state": 'missing points'})
+            requests.patch(f'{PATCH_URL}/index-result/update/{ping_id}', {"siin": 0, "sidi": 0, "dindin": 0, "state": 'missing points'})
         return super().get(self, *args, **kwargs)
